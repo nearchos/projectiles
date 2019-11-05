@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Physics</string>
+
+    <string name="Initial_velocity">Initial velocity</string>
+    <string name="v">%1$dm/s</string>
+
+    <string name="Angle">Angle</string>
+    <string name="a">%1$d°</string>
+
+    <string name="Gravity">Gravity</string>
+    <string name="g">%1$s %2$.2fm/s&#178;</string>
+
+    <string name="Time">Time</string>
+    <string name="t">%1$.2fs (%2$d%%)</string>
+
+</resources>
