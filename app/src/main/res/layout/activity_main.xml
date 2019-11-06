@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <io.github.nearchos.physics.ProjectileMotionView
+    <io.github.nearchos.projectiles.ProjectileMotionView
         android:id="@+id/ballisticsView"
         android:layout_margin="8dp"
         android:layout_width="match_parent"

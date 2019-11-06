@@ -1,4 +1,4 @@
-package io.github.nearchos.physics;
+package io.github.nearchos.projectiles;
 
 import androidx.appcompat.app.AppCompatActivity;
 

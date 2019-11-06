@@ -1,4 +1,4 @@
-package io.github.nearchos.physics;
+package io.github.nearchos.projectiles;
 
 import org.junit.Test;
 
