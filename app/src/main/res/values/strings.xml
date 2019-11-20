@@ -2,6 +2,8 @@
     <string name="app_name">Physics</string>
 
     <string name="Planet">Planet</string>
+    <string name="Swipe_left">Swipe left</string>
+    <string name="Swipe_right">Swipe right</string>
 
     <string name="Initial_velocity">Initial velocity</string>
     <string name="v">%1$dm/s</string>

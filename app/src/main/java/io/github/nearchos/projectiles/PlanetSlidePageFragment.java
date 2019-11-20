@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.Locale;
+
 public class PlanetSlidePageFragment extends Fragment {
 
     private final Planet planet;
@@ -27,7 +29,7 @@ public class PlanetSlidePageFragment extends Fragment {
         final int identifier = getResources().getIdentifier(planet.getResourceName(), "drawable", getContext().getPackageName());
         imageView.setImageResource(identifier);
         final TextView textView = rootView.findViewById(R.id.textViewPlanetSlide);
-        textView.setText(planet.getName());
+        textView.setText(String.format(Locale.US, "%s (%.1f m/s²)", planet.getName(), planet.getGravity()));
         return rootView;
     }
 }

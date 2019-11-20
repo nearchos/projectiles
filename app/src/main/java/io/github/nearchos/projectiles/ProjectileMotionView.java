@@ -33,9 +33,6 @@ public class ProjectileMotionView extends View {
         init();
     }
 
-//    private Bitmap hill;
-//    private int hillWidth;
-//    private int hillHeight;
     private final Rect srcRect = new Rect();
     private final Rect dstRect = new Rect();
 
@@ -45,13 +42,6 @@ public class ProjectileMotionView extends View {
     private final Paint blackPaint = new Paint();
 
     private void init() {
-        // the used picture is free on the public domain - from https://www.goodfreephotos.com
-        // specific url: https://www.goodfreephotos.com/other-landscapes/meadow-and-single-tree-in-the-distance.jpg.php
-//        hill = BitmapFactory.decodeResource(getResources(), R.drawable.hill);
-//        hillWidth = hill.getWidth();
-//        hillHeight = hill.getHeight();
-//        Log.d(TAG, "zoom - hill width & height: " + hillWidth + " & " + hillHeight);
-
         blackPaint.setStyle(Paint.Style.FILL);
         blackPaint.setColor(Color.BLACK);
 
@@ -59,15 +49,11 @@ public class ProjectileMotionView extends View {
         final WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         assert windowManager != null;
         windowManager.getDefaultDisplay().getMetrics(displaymetrics);
-        int screenHeight = displaymetrics.heightPixels;
-        int screenWidth = displaymetrics.widthPixels;
-        Log.d(TAG, "zoom - screen width & height: " + screenWidth + " & " + screenHeight);
     }
 
     private final Map<Planet, Bitmap> planetImagesCache = new HashMap<>();
 
     private Bitmap getPlanetBitmap(final Planet planet) {
-        System.out.println("planet: " + planet);
         if(!planetImagesCache.containsKey(planet)) {
             final int identifier = getContext().getResources().getIdentifier(planet.getResourceName(), "drawable", getContext().getPackageName());
             final Bitmap bitmap = BitmapFactory.decodeResource(getResources(), identifier);
@@ -95,10 +81,9 @@ public class ProjectileMotionView extends View {
     final Paint paint = new Paint();
 
     public static final int BOUND = 10;
-    public static final float TEXT_SIZE = 40f;
-    public static final int RADIUS = 20;
+    public static final float TEXT_SIZE = 20f;
+    public static final int RADIUS = 30;
     public static final float ARROW_MULTIPLIER = 2f; // multiplies the init velocity arrow length
-    public static final float SMOOTHING = 0.5f;
 
     /**
      * Look at https://en.wikipedia.org/wiki/Projectile_motion
@@ -117,47 +102,14 @@ public class ProjectileMotionView extends View {
         final double ceiling = Util.computeMaxHeight(initialVelocity, angleInRadians, gravity);
         final double timeOfFlight = Util.computeTimeOfFlight(initialVelocity, angleInRadians, gravity);
 
-        final double balancePointRange = Util.computeRange(Util.BALANCE_POINT_VELOCITY, Util.BALANCE_POINT_ANGLE_IN_RADIANS, gravity);
-        final double balancePointCeiling = Util.computeMaxHeight(Util.BALANCE_POINT_VELOCITY, Util.BALANCE_POINT_ANGLE_IN_RADIANS, gravity);
-
         final float screenRange = width - 2 * BOUND;
         double zoom = 1d;
-//        double zoom = range / screenRange;
-//        double zoom = timePercent > 50 ? timePercent - 50 : 1d / (1 + 10-timePercent/5d);
-
-        if(zoom < MIN_ZOOM) zoom = MIN_ZOOM;
-        if(zoom > MAX_ZOOM) zoom = MAX_ZOOM;
 
         // draw zoom text and reference graphics
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         paint.setTextSize(TEXT_SIZE);
-//        final double bitmapWidthToHeightRatio = hillWidth * 1d / hillHeight;
-//        final int computedBitmapHeight = (int) (hillHeight * (1+zoom) * SMOOTHING);
-//        final int computedBitmapWidth = (int) (computedBitmapHeight * bitmapWidthToHeightRatio);
-////        final int computedBitmapHeight = (int) (zoom * hillHeight / 4);
-////        final int computedBitmapWidth = (int) (zoom * hillWidth / 4);
-//        srcRect.set(Math.max(0, hillWidth - computedBitmapWidth), Math.max(0, hillHeight/2 - computedBitmapHeight/2), hillWidth, Math.min(hillHeight, hillHeight/2 + computedBitmapHeight/2));
-//        Log.d(TAG, "zoom - srcRect: " + srcRect.toShortString());
-//        dstRect.set(0, 0, width, height);
-////        canvas.drawBitmap(hill, srcRect, dstRect, paint);
 
         canvas.drawPaint(blackPaint);
-
-        if(planet != null) {
-            final Bitmap planetBitmap = getPlanetBitmap(planet);
-            final float density = getResources().getDisplayMetrics().density;
-Log.d(TAG, "zoom - density: " + density);
-            final float bitmapWidth = planetBitmap.getWidth() / density;
-            final float bitmapHeight = planetBitmap.getHeight() / density;
-            srcRect.set(0, 0, planetBitmap.getWidth(), planetBitmap.getHeight());
-Log.d(TAG, "zoom - bitmapWidth: " + bitmapWidth + ", screen width(): " + width);
-            final int planetMaxWidth = Math.min((int) bitmapWidth, width);
-            final int planetMaxHeight = Math.min((int) bitmapHeight, height);
-            final int leftBound = (width - planetMaxWidth) / 2;
-            Log.d(TAG, "zoom - leftBound: " + leftBound);
-            dstRect.set(leftBound, 0, leftBound + planetMaxWidth, planetMaxHeight);
-            canvas.drawBitmap(planetBitmap, srcRect, dstRect, paint);
-        }
 
         canvas.drawText(String.format(Locale.US, "zoom: %.2f", zoom), BOUND, BOUND + TEXT_SIZE, paint);
 
