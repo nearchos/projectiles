@@ -33,13 +33,8 @@ public class ProjectileMotionView extends View {
         init();
     }
 
-    private final Rect srcRect = new Rect();
-    private final Rect dstRect = new Rect();
-
-    public static final float MIN_ZOOM = 0.1f;
-    public static final float MAX_ZOOM = 10.0f;
-
     private final Paint blackPaint = new Paint();
+    private final Paint gridPaint = new Paint();
 
     private void init() {
         blackPaint.setStyle(Paint.Style.FILL);
@@ -110,8 +105,39 @@ public class ProjectileMotionView extends View {
         paint.setTextSize(TEXT_SIZE);
 
         canvas.drawPaint(blackPaint);
+        // draw background grid
+        {
+            float gridStep;
+            if(range > 500) {
+                gridStep = 200f;
+                gridPaint.setColor(Color.RED);
+            } else if(range > 50) {
+                gridStep = 20f;
+                gridPaint.setColor(Color.GREEN);
+            } else if(range > 5) {
+                gridStep = 2f;
+                gridPaint.setColor(Color.WHITE);
+            } else {
+                gridStep = 0.2f;
+                gridPaint.setColor(Color.YELLOW);
+            }
+            int numOfGridLines = (int) (range / gridStep); // must be few to few dozens
+            float gridLineDistance = (width - 2 * BOUND) / numOfGridLines;
+
+            final float startY = height / 2;
+            final float endY = height - TEXT_SIZE;
+            final float stepY = (endY - startY) / (numOfGridLines - 1);
+            for(float y = startY; y <= endY; y += stepY) {
+                canvas.drawLine(BOUND, y, width - BOUND, y, gridPaint);
+            }
+
+            for(int x = 0; x < width - BOUND; x += gridLineDistance) {
+                canvas.drawLine(x + BOUND, height - TEXT_SIZE, width / 4f + x / 2f, height / 2f, gridPaint);
+            }
+        }
 
         canvas.drawText(String.format(Locale.US, "zoom: %.2f", zoom), BOUND, BOUND + TEXT_SIZE, paint);
+        canvas.drawText(String.format(Locale.US, "range: %.2f", range), BOUND, BOUND + 3 * TEXT_SIZE, paint);
 
         // draw orbit
         paint.setColor(Color.CYAN);
@@ -132,7 +158,7 @@ public class ProjectileMotionView extends View {
         canvas.drawLine(BOUND, height - BOUND, BOUND + (float) arrowX, height - BOUND - (float) arrowY, paint);
 
         // draw range line
-        paint.setColor(Color.BLACK);
+        paint.setColor(Color.WHITE);
         paint.setStrokeWidth(2f);
         final String rangeLabel = String.format(Locale.US, "%.2f m", range);
         final float rangeLabelWidth = paint.measureText(rangeLabel);
