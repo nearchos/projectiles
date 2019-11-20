@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Physics</string>
 
+    <string name="Planet">Planet</string>
+
     <string name="Initial_velocity">Initial velocity</string>
     <string name="v">%1$dm/s</string>
 

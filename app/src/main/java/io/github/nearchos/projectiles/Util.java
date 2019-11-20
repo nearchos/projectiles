@@ -2,6 +2,10 @@ package io.github.nearchos.projectiles;
 
 public class Util {
 
+    public static final int BALANCE_POINT_VELOCITY = 50; // assumes 0 .. 100, so balance point is 50
+
+    public static final double BALANCE_POINT_ANGLE_IN_RADIANS = Math.PI / 4d; // assumes 0 .. 90 degrees so balance point is 45 degrees
+
     /**
      * Computes maximum horizontal distance.
      */
