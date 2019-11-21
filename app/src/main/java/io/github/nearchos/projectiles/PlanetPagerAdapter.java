@@ -7,18 +7,21 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class PlanetPagerAdapter extends FragmentStatePagerAdapter {
 
-    public PlanetPagerAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
+    private final Planet [] planets;
+
+    PlanetPagerAdapter(@NonNull final FragmentManager fragmentManager, final Planet [] planets) {
+        super(fragmentManager, FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.planets = planets;
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        return new PlanetSlidePageFragment(Planet.PLANETS[position]);
+        return new PlanetSlidePageFragment(planets[position]);
     }
 
     @Override
     public int getCount() {
-        return Planet.PLANETS.length;
+        return planets.length;
     }
 }

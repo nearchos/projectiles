@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="planetNames">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Moon</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
+
+    <integer-array name="planetGravities">
+        <item>370</item>
+        <item>887</item>
+        <item>981</item>
+        <item>162</item>
+        <item>372</item>
+        <item>2479</item>
+        <item>1044</item>
+        <item>869</item>
+        <item>1115</item>
+    </integer-array>
+
+    <string-array name="planetDrawablesNames">
+        <item>mercury</item>
+        <item>venus</item>
+        <item>earth</item>
+        <item>moon</item>
+        <item>mars</item>
+        <item>jupiter</item>
+        <item>saturn</item>
+        <item>uranus</item>
+        <item>neptune</item>
+    </string-array>
+
+</resources>

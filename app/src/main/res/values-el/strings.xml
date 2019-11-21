@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Φυσική</string>
+    <string name="Angle">Γωνία</string>
+    <string name="Gravity">Βαρύτητα</string>
+    <string name="Initial_velocity">Αρχική ταχύτητα</string>
+    <string name="Planet">Πλανήτης</string>
+    <string name="Swipe_left">Σύρτε αριστερά</string>
+    <string name="Swipe_right">Σύρτε δεξιά</string>
+    <string name="Time">Χρόνος</string>
+    <string name="g">%1$s %2$.2fμ/δ²</string>
+    <string name="metersPerSecondPerSecond">μ/δ&#178;</string>
+    <string name="t">%1$.2f δ (%2$d%%)</string>
+    <string name="v">%1$d μ/δ</string>
+    <string name="maxHeight">Μέγιστο ύψος: %1$.2f μ</string>
+</resources>

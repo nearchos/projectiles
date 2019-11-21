@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     private ProjectileMotionView projectileMotionView;
@@ -26,13 +28,24 @@ public class MainActivity extends AppCompatActivity {
 
     private SeekBarHandler seekBarHandler = new SeekBarHandler();
 
+    private Planet [] planets;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // init planets
+        final String [] planetNames = getResources().getStringArray(R.array.planetNames);
+        final int [] planetGravitiesAsIntegersTimes100 = getResources().getIntArray(R.array.planetGravities);
+        final String [] planetDrawableNames = getResources().getStringArray(R.array.planetDrawablesNames);
+        planets = new Planet[planetNames.length];
+        for(int i = 0; i < planetNames.length; i++) {
+            planets[i] = new Planet(planetNames[i], planetGravitiesAsIntegersTimes100[i] / 100d, planetDrawableNames[i]);
+        }
+
         viewPagerPlanets = findViewById(R.id.viewPagerPlanets);
-        viewPagerPlanets.setAdapter(new PlanetPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
+        viewPagerPlanets.setAdapter(new PlanetPagerAdapter(getSupportFragmentManager(), planets));
         viewPagerPlanets.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
@@ -85,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         final int initialVelocityInMetersPerSecond = seekBarInitialVelocity.getProgress();
         final int angleInDegrees = seekBarAngle.getProgress();
         final double angleInRadians = Util.degreesToRadians(angleInDegrees);
-        final Planet planet = Planet.PLANETS[viewPagerPlanets.getCurrentItem()];
+        final Planet planet = planets[viewPagerPlanets.getCurrentItem()];
         final int timePercent = seekBarTime.getProgress();
         final double timeOfFlight = Util.computeTimeOfFlight(initialVelocityInMetersPerSecond, angleInRadians, planet.getGravity());
         final double timeInSeconds = timeOfFlight * timePercent / 100d;
@@ -94,6 +107,6 @@ public class MainActivity extends AppCompatActivity {
         angleValue.setText(getString(R.string.a, angleInDegrees));
         timeValue.setText(getString(R.string.t, timeInSeconds, timePercent));
 
-        projectileMotionView.update(initialVelocityInMetersPerSecond, angleInDegrees, planet, timePercent);
+        projectileMotionView.update(initialVelocityInMetersPerSecond, angleInDegrees, planet.getGravity(), timePercent);
     }
 }

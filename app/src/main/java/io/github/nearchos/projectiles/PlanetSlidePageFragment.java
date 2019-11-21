@@ -17,7 +17,7 @@ public class PlanetSlidePageFragment extends Fragment {
 
     private final Planet planet;
 
-    public PlanetSlidePageFragment(final Planet planet) {
+    PlanetSlidePageFragment(final Planet planet) {
         this.planet = planet;
     }
 
@@ -29,7 +29,7 @@ public class PlanetSlidePageFragment extends Fragment {
         final int identifier = getResources().getIdentifier(planet.getResourceName(), "drawable", getContext().getPackageName());
         imageView.setImageResource(identifier);
         final TextView textView = rootView.findViewById(R.id.textViewPlanetSlide);
-        textView.setText(String.format(Locale.US, "%s (%.1f m/s²)", planet.getName(), planet.getGravity()));
+        textView.setText(String.format(Locale.US, "%s (%.1f %s)", planet.getName(), planet.getGravity(), getString(R.string.metersPerSecondPerSecond)));
         return rootView;
     }
 }

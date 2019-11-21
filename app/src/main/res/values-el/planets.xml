@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="planetNames">
+        <item>Ερμής</item>
+        <item>Αφροδίτη</item>
+        <item>Γή</item>
+        <item>Φεγγάρι</item>
+        <item>Άρης</item>
+        <item>Δίας</item>
+        <item>Κρόνος</item>
+        <item>Ουρανός</item>
+        <item>Ποσειδώνας</item>
+    </string-array>
+
+</resources>
